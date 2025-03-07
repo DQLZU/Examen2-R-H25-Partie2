@@ -9,17 +9,37 @@
     <Window.DataContext>
         <local:Examen2ViewModel/>
     </Window.DataContext>
-    <Grid>
-        <Menu>
-            <MenuItem Header="Save" Command="{Binding SaveCommand}"></MenuItem>
+    <Grid Margin="10 0">
+        <Menu Width="800">
+            <MenuItem Header="Save" Command="{Binding SaveCommand}" Height="28" Width="92"></MenuItem>
         </Menu>
-      
-        <!-- TODO : 
-        Ajouter un DataGrid, un ListBox et 2 boutons comme sur l'image fournie : "Examen 2 - R - H25 - Partie 2.png"
-        Le DataGrid doit implémenter la binding pour gérer tous les livres de la bibliothèque et avoir la possibilité de sélectionner un livre à emprunter.
-        Le ListBox doit implémenter le binding pour gérer le panier d'emprunts du client et la possibilité de sélectionner un livre pour le retourner.
-        Les 2 boutons servent à emprunter les livres et à les retourner à l'aide de binding sur des commandes.
-        -->
 
+
+        <DataGrid ItemsSource="{Binding ListeLivres}" AutoGenerateColumns="True" 
+                      SelectedItem="{Binding LivreSelectionne}" 
+                      SelectedIndex="{Binding CurrentIndex}" Margin="0,27,0,238">
+        </DataGrid>
+
+        <Button Name="btnEmprunter" Content="Emprunter" Command="{Binding EmprunterCommand}" Margin="0,208,660,182" HorizontalAlignment="Right" Width="98"/>
+        <Button Name="btnRetourner" Content="Retourner" Command="{Binding RetournerCommand}" Margin="0,208,523,182" HorizontalAlignment="Right" Width="98"/>
+
+        <Label Name="lblSortie" Content="{Binding Message}" Margin="335,208,44,197"></Label>
+
+        <ListBox ItemsSource="{Binding ListePanier}" SelectedItem="{Binding LivreSelecList}" SelectedIndex="{Binding CurrentIndex}" Margin="0,257,-1,10">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding ISBN }" FontWeight="Bold" Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding Titre }" FontWeight="Bold" Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding Auteur}" FontWeight="Bold" Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding Prix}" FontWeight="Bold" Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding NombrePages}" FontWeight="Bold" Margin="0,0,5,0"/>
+                        <TextBlock Text="{Binding AnneePublication}" FontWeight="Bold" Margin="0,0,5,0"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>
+
+
